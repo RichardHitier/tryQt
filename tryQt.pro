@@ -10,5 +10,8 @@ QT+=widgets
 
 # Input
 SOURCES  = main.cpp \
-           mainwindow.cpp
-HEADERS  = mainwindow.h
+           mainwindow.cpp \ 
+           mother.cpp
+
+HEADERS  = mainwindow.h \
+           mother.h
