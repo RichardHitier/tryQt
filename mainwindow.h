@@ -7,9 +7,11 @@
 class MainWindow :  public QWidget, public Mother
 {
     Q_OBJECT
+    Q_INTERFACES(Mother)
 
 public:
     MainWindow();
+    void doit();
 
 };
 

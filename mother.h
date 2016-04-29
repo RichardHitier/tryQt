@@ -8,6 +8,7 @@ class Mother
 {
 public:
     Mother();
+    virtual void doit()=0;
 };
 Q_DECLARE_INTERFACE(Mother, "motherid");
 
