@@ -2,15 +2,13 @@
 #define MOTHER_H
 
 #include <iostream>
-#include <QObject>
+#include <QWidget>
 
-class Mother : public QObject
+class Mother
 {
-    Q_OBJECT
-
 public:
     Mother();
-
 };
+Q_DECLARE_INTERFACE(Mother, "motherid");
 
 #endif

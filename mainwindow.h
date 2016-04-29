@@ -2,8 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QWidget>
+#include "mother.h"
 
-class MainWindow : public QWidget
+class MainWindow :  public QWidget, public Mother
 {
     Q_OBJECT
 
