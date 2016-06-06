@@ -1,21 +1,32 @@
 #include <iostream>
+
+#include <QApplication>
+#include <QObject>
+
 #include "er.h"
 #include "fm.h"
-#include <QObject>
+#include  "mainwindow.h"
 
 
 using namespace std;
 
 
 
-int main()
+int main(int argc, char **argv)
 {
-    cout << "Hello World!" << endl;
-    Emetteur *e = new Emetteur();
-    Fils *fils = new Fils();
-    fils->setEmetteur(e);
-    e->changer(10);
+     QApplication a(argc, argv);
+
+   cout << "Hello World!" << endl;
+   Emetteur *e = new Emetteur();
+   Fils *fils = new Fils();
+   fils->setEmetteur(e);
+   e->changer(10);
 
 
-    return 0;
+    MainWindow w;
+
+    w.show();
+
+
+    return a.exec();
 }
