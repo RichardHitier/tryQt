@@ -8,13 +8,14 @@
 class  Maman : public QObject
 {
     Q_OBJECT
+
     int m_a=0;
     Emetteur *m_e;
 public:
     Maman(int a);
     Maman();
     void init(int a);
-    void show();
+    void showInt();
     void setEmetteur(Emetteur *);
 public    slots:
     void  exploded();
@@ -28,7 +29,7 @@ public:
     Fils(int a);
 
     Fils();
-    void show();
+    void showInt();
 };
 
 #endif // FM_H

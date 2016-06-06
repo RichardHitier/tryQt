@@ -6,6 +6,7 @@
 class Emetteur: public QObject
 {
     Q_OBJECT
+
 public:
     int m_val=0;
     Emetteur();
@@ -18,6 +19,7 @@ signals:
 class Receveur: public QObject
 {
     Q_OBJECT
+
 public:
     Receveur();
 public slots:

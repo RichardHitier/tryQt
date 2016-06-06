@@ -19,13 +19,13 @@ void Maman::init(int a){
     cout<<"maman initialise a "<<m_a<<endl;
 }
 
-void Maman::show(){
+void Maman::showInt(){
     cout<<"maman montre: "<<m_a<<endl;
 }
 
 void  Maman::exploded(){
     cout <<"explode"<<endl;
-    show();
+    showInt();
 }
 
 void Maman::setEmetteur(Emetteur *e)
@@ -42,7 +42,7 @@ Fils::Fils(){
     cout<<"construit dans le fils"<<endl;
 }
 
-void Fils::show(){
-    Maman::show();
+void Fils::showInt(){
+    Maman::showInt();
     cout<<"je surcouche le show() dans le fis"<<endl;
 }
