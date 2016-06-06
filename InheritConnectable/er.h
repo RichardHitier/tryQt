@@ -11,6 +11,7 @@ public:
     int m_val=0;
     Emetteur();
     void changer(int val);
+    int val();
 
 signals:
     void bang();

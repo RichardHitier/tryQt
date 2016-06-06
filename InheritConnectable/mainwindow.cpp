@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
+#include <QString>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,12 +23,11 @@ void MainWindow::listenBang()
 
 void MainWindow::onBang()
 {
-    qDebug()<<"received bang";
-
+    ui->label->setText( QString::number(m_em->val()) );
 }
 
 
 void MainWindow::on_pushButton_clicked()
 {
-   m_em->changer(10);
+   m_em->changer(ui->spinBox->value());
 }

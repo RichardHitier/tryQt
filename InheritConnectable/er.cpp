@@ -15,6 +15,10 @@ void Emetteur::changer(int val){
     cout<<"abouit to emit bang"<<endl;
     emit bang();
 }
+int Emetteur::val()
+{
+    return m_val;
+}
 
 
 Receveur::Receveur(){
