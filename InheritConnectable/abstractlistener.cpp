@@ -17,4 +17,5 @@ AbstractListener::AbstractListener(Emetteur *em)
 void AbstractListener::setEmetteur(Emetteur *em)
 {
     m_em = em;
+    listenBang();
 }

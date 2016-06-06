@@ -17,6 +17,11 @@ class MainWindow : public QMainWindow, public AbstractListener
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void listenBang();
+
+private slots:
+    void on_pushButton_clicked();
+    void onBang();
 
 private:
     Ui::MainWindow *ui;

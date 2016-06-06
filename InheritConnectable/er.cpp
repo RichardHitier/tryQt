@@ -10,7 +10,9 @@ Emetteur::Emetteur(){
     cout<<"C'est moi l'emetteur"<<endl;
 }
 void Emetteur::changer(int val){
+    cout<<"abouit to change m_val"<<endl;
     m_val = val;
+    cout<<"abouit to emit bang"<<endl;
     emit bang();
 }
 

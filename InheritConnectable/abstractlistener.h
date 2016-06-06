@@ -5,13 +5,15 @@
 
 class AbstractListener
 {
-    Emetteur *m_em;
 
 public:
     AbstractListener();
     AbstractListener(Emetteur *);
     void setEmetteur(Emetteur *);
     virtual void bangArrived(){}
+    virtual void listenBang(){}
+
+    Emetteur *m_em;
 };
 
 #endif // ABSTRACTLISTENER_H
