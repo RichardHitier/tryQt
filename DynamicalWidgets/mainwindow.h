@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    void drawMatrix(int nbrows, int nbcols);
 };
 
 #endif // MAINWINDOW_H
