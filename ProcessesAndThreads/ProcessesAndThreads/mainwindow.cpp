@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QThread>
 #include <QString>
 #include <QProcess>
 #include <QTimer>
@@ -45,5 +46,10 @@ void MainWindow::pingProcess(QString host)
 
 void MainWindow::on_pingBtn_clicked()
 {
+    QPushButton *btn = qobject_cast<QPushButton *>(sender());
+    btn->setEnabled(false);
+
     pingProcess(ui->hostEdit->text());
+
+    btn->setEnabled(true);
 }

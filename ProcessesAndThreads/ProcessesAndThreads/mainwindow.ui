@@ -20,7 +20,7 @@
       <x>150</x>
       <y>60</y>
       <width>291</width>
-      <height>80</height>
+      <height>97</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -31,6 +31,13 @@
       <widget class="QPushButton" name="pingBtn">
        <property name="text">
         <string>Ping Above Name</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="horizontalSlider">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
