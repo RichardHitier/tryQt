@@ -33,7 +33,7 @@ void MainWindow::on_pingBtn_clicked()
 
     QPushButton *btn = qobject_cast<QPushButton *>(sender());
     btn->setEnabled(false);
-    PingThread pt;
+    PingThread pt(ui->hostEdit->text());
     pt.start();
 
 //    pingProcess(ui->hostEdit->text());
@@ -44,10 +44,21 @@ void MainWindow::on_pingBtn_clicked()
 }
 
 
+PingThread::PingThread(QString host)
+{
+    setHost(host);
+}
+
+void PingThread::setHost(QString host)
+{
+
+    m_host = host.isEmpty() ? "google.com": host;
+}
+
 void PingThread::run()
 {
     qDebug()<<"Yes I run";
-    pingProcess("google.com");
+    pingProcess(m_host);
     qDebug()<<"Ok i leave";
 
 }

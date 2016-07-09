@@ -28,7 +28,11 @@ class PingThread : public QThread
 {
     Q_OBJECT
 
+public:
+    PingThread(QString);
 private:
+    QString m_host;
+    void setHost(QString);
     void pingProcess(QString host);
     void run();
 };
