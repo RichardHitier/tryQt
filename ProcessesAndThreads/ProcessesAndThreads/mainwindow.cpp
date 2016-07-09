@@ -25,21 +25,27 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pingBtn_clicked()
 {
-//    QEventLoop qel;
-//    QTimer tT;
-//
-//    tT.setSingleShot(true);
-//    connect(&tT, SIGNAL(timeout()), &qel, SLOT(quit()));
+    QEventLoop qel;
+    //QTimer tT;
+    PingThread pt(ui->hostEdit->text());
 
+    // disable ui
     QPushButton *btn = qobject_cast<QPushButton *>(sender());
     btn->setEnabled(false);
-    PingThread pt(ui->hostEdit->text());
-    pt.start();
 
-//    pingProcess(ui->hostEdit->text());
-    pt.wait();
+    //tT.setSingleShot(true);
+    //connect(&tT, SIGNAL(timeout()), &qel, SLOT(quit()));
+
+    connect( &pt, SIGNAL(finished()), &qel, SLOT(quit()));
+
+    pt.start(); // start ping process
+
+    qel.exec(); // wait here for pt.finished signal
+
+    //pt.wait();
 
 
+    // reenable ui
     btn->setEnabled(true);
 }
 
