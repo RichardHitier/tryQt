@@ -6,6 +6,8 @@
 #include <QProcess>
 #include <QTimer>
 #include <QDebug>
+#include <QEventLoop>
+
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -46,10 +48,29 @@ void MainWindow::pingProcess(QString host)
 
 void MainWindow::on_pingBtn_clicked()
 {
+//    QEventLoop qel;
+//    QTimer tT;
+//
+//    tT.setSingleShot(true);
+//    connect(&tT, SIGNAL(timeout()), &qel, SLOT(quit()));
+
     QPushButton *btn = qobject_cast<QPushButton *>(sender());
     btn->setEnabled(false);
+    PingThread pt;
+    pt.start();
 
-    pingProcess(ui->hostEdit->text());
+//    pingProcess(ui->hostEdit->text());
+    pt.wait();
+
 
     btn->setEnabled(true);
+}
+
+
+void PingThread::run()
+{
+    qDebug()<<"Yes I run";
+    QThread::msleep(1000);
+    qDebug()<<"Ok i leave";
+
 }

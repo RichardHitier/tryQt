@@ -1,10 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QThread>
 #include <QMainWindow>
 
 namespace Ui {
 class MainWindow;
+class PingThread;
 }
 
 class MainWindow : public QMainWindow
@@ -21,6 +23,14 @@ private slots:
 private:
     Ui::MainWindow *ui;
     void pingProcess(QString host);
+};
+
+class PingThread : public QThread
+{
+    Q_OBJECT
+
+private:
+    void run();
 };
 
 #endif // MAINWINDOW_H
