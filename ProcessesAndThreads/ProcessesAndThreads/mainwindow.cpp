@@ -22,29 +22,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::pingProcess(QString host)
-{
-    QProcess *pingprocess = new QProcess();
-    QString exec = "ping";
-    int status;
-
-    qDebug()<<"About to ping "<<host;
-
-    #if defined(win32)
-    QString parameter="-n 1";
-    #else
-    QString parameter="-c 1";
-    #endif
-    //    pingprocess->closereadchannel(qprocess::standardoutput);
-    //    pingprocess->closereadchannel(qprocess::standarderror);
-
-    status = pingprocess->execute(exec, QStringList() << parameter << host);
-    //    pingprocess->setreadchannel(qprocess::standardoutput);
-    //    pingprocess->setreadchannel(qprocess::standarderror);
-    qDebug()<<"pingstatus: "<<status;
-    pingprocess->close();
-
-}
 
 void MainWindow::on_pingBtn_clicked()
 {
@@ -70,7 +47,31 @@ void MainWindow::on_pingBtn_clicked()
 void PingThread::run()
 {
     qDebug()<<"Yes I run";
-    QThread::msleep(1000);
+    pingProcess("google.com");
     qDebug()<<"Ok i leave";
+
+}
+
+void PingThread::pingProcess(QString host)
+{
+    QProcess *pingprocess = new QProcess();
+    QString exec = "ping";
+    int status;
+
+    qDebug()<<"About to ping "<<host;
+
+    #if defined(win32)
+    QString parameter="-n 1";
+    #else
+    QString parameter="-c 1";
+    #endif
+    //    pingprocess->closereadchannel(qprocess::standardoutput);
+    //    pingprocess->closereadchannel(qprocess::standarderror);
+
+    status = pingprocess->execute(exec, QStringList() << parameter << host);
+    //    pingprocess->setreadchannel(qprocess::standardoutput);
+    //    pingprocess->setreadchannel(qprocess::standarderror);
+    qDebug()<<"pingstatus: "<<status;
+    pingprocess->close();
 
 }

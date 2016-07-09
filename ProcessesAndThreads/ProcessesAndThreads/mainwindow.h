@@ -22,7 +22,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    void pingProcess(QString host);
 };
 
 class PingThread : public QThread
@@ -30,6 +29,7 @@ class PingThread : public QThread
     Q_OBJECT
 
 private:
+    void pingProcess(QString host);
     void run();
 };
 
