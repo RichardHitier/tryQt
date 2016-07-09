@@ -26,7 +26,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pingBtn_clicked()
 {
     QEventLoop qel;
-    //QTimer tT;
+    QTimer tT;
     PingThread pt(ui->hostEdit->text());
 
     // disable ui
@@ -35,18 +35,20 @@ void MainWindow::on_pingBtn_clicked()
 
     ui->statusBar->showMessage("Pinging ....");
 
-    //tT.setSingleShot(true);
-    //connect(&tT, SIGNAL(timeout()), &qel, SLOT(quit()));
-
+    tT.setSingleShot(true);
+    connect(&tT, SIGNAL(timeout()), &qel, SLOT(quit()));
     connect( &pt, SIGNAL(finished()), &qel, SLOT(quit()));
 
     pt.start(); // start ping process
+    tT.start(5000); // also start timeout
 
     qel.exec(); // wait here for pt.finished signal
+                //        or for tt.timeout signal
 
-    //pt.wait();
-
-    ui->statusBar->showMessage("Ping Finished");
+    if( tT.isActive())
+        ui->statusBar->showMessage("Ping exited normally");
+    else
+        ui->statusBar->showMessage("Timeout before Ping finished");
 
     // reenable ui
     btn->setEnabled(true);
