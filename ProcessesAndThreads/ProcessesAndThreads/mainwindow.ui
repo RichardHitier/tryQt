@@ -14,18 +14,27 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>110</y>
-      <width>99</width>
-      <height>27</height>
+      <x>150</x>
+      <y>60</y>
+      <width>291</width>
+      <height>80</height>
      </rect>
     </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLineEdit" name="hostEdit"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pingBtn">
+       <property name="text">
+        <string>Ping Above Name</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

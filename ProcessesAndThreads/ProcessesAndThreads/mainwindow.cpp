@@ -25,6 +25,8 @@ void MainWindow::pingProcess(QString host)
     QString exec = "ping";
     int status;
 
+    qDebug()<<"About to ping "<<host;
+
     #if defined(win32)
     QString parameter="-n 1";
     #else
@@ -41,9 +43,7 @@ void MainWindow::pingProcess(QString host)
 
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pingBtn_clicked()
 {
-
-    pingProcess("google.com");
-
+    pingProcess(ui->hostEdit->text());
 }
