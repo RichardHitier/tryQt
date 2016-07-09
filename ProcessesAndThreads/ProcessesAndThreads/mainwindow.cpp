@@ -33,6 +33,8 @@ void MainWindow::on_pingBtn_clicked()
     QPushButton *btn = qobject_cast<QPushButton *>(sender());
     btn->setEnabled(false);
 
+    ui->statusBar->showMessage("Pinging ....");
+
     //tT.setSingleShot(true);
     //connect(&tT, SIGNAL(timeout()), &qel, SLOT(quit()));
 
@@ -44,6 +46,7 @@ void MainWindow::on_pingBtn_clicked()
 
     //pt.wait();
 
+    ui->statusBar->showMessage("Ping Finished");
 
     // reenable ui
     btn->setEnabled(true);
