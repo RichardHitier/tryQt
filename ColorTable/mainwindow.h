@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsScene>
+#include <QColor>
+#include <QList>
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +20,12 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QGraphicsScene *m_scene ;
+    QList<QColor> m_colorList;
+    void initUi();
+    void addRectList();
+    void makeColorTable();
+    QColor  countColor(int);
 };
 
 #endif // MAINWINDOW_H
