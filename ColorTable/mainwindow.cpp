@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QGraphicsTextItem>
+#include <QThread>
 
 #define NBCOLORS 255
 
@@ -54,12 +55,21 @@ void MainWindow::fillBitMapRand()
     {
         for( int y=0; y<sceneH/10;y++ )
         {
-            qDebug()<<x<<y;
-            m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(Qt::green));
+            int max = ui->maxSpinBox->value();
+            QColor pxColor = countColor(randInt(0,max), max);
+            m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(pxColor));
+            //QThread::msleep(2);
+            //QApplication::processEvents();
         }
     }
-//    ui->graphicsView_2->fitInView(m_sceneBitMap->sceneRect(), Qt::KeepAspectRatio);
 }
+
+int MainWindow::randInt(int low, int high)
+{
+    // Random number between low and high
+    return qrand() % ((high + 1) - low) + low;
+}
+
 
 /*
  * draws the color table
@@ -79,6 +89,9 @@ void MainWindow::addRectList()
     }
 }
 
+/*
+ * build color table
+ */
 void MainWindow::makeColorTable()
 {
     int r=256;
@@ -103,6 +116,9 @@ void MainWindow::makeColorTable()
     }
 }
 
+/*
+ * return a color from int value
+ */
 QColor MainWindow::countColor(int count, int maxValue)
 {
     // cut to top

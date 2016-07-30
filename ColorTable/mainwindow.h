@@ -31,6 +31,7 @@ private:
     void fillBitMapRand();
     void addRectList();
     void makeColorTable();
+    int randInt(int,int);
     QColor  countColor(int, int);
 };
 
