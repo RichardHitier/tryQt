@@ -108,6 +108,9 @@ QColor MainWindow::countColor(int count, int maxValue)
     // cut to top
     count = count > maxValue ?  maxValue : count;
 
+    // normalize to max
+    count = (count * NBCOLORS) / maxValue;
+
     return m_colorList.at(count);
 }
 
