@@ -43,15 +43,11 @@ void MainWindow::addRectList()
     for( int i=0; i<NBCOLORS; i++)
     {
         m_scene->addRect(0,i,3,10, QPen(Qt::transparent), countColor(i));
-        //m_scene->addRect(0,i,8,10, QPen(Qt::transparent), Qt::transparent);
         int tic = i%10;
         if( tic == 0)
         {
-            qDebug()<<"-------- "<<i;
-            //m_scene->addRect(9,i,2,1, QPen(Qt::transparent), Qt::black);
             QGraphicsTextItem *text = m_scene->addText(QString::number(i), QFont("Arial",3));
             text->setPos(-1,i-5);
-            //text->show();
         }
     }
 }
@@ -76,8 +72,7 @@ void MainWindow::makeColorTable()
         r=(r==256 )?255:r;
         g=(g==256 )?255:g;
         b=(b==256 )?255:b;
-        qDebug()<<"Step: "<<step<<" r: "<<r<<" g:"<<g<<" b:"<<b;
-        m_colorList.append(QColor(r,g,b));
+        m_colorList.append(QColor(b,g,r));
     }
 }
 
