@@ -20,9 +20,12 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QGraphicsScene *m_sceneBitMap ;
     QGraphicsScene *m_scene ;
     QList<QColor> m_colorList;
     void initUi();
+    void initColorTable();
+    void fillBitMapRand();
     void addRectList();
     void makeColorTable();
     QColor  countColor(int);

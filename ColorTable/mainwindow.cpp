@@ -25,6 +25,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::initUi()
 {
+    initColorTable();
+    fillBitMapRand();
+}
+
+void MainWindow::initColorTable()
+{
     m_scene = new QGraphicsScene(this);
     m_scene->setSceneRect(0,0,10,NBCOLORS);
     ui->graphicsView->setScene(m_scene);
@@ -36,6 +42,24 @@ void MainWindow::initUi()
     qreal xscale = ui->graphicsView->width()/(qreal)m_scene->sceneRect().width()-0.2;
     qreal yscale = ui->graphicsView->height()/(qreal)m_scene->sceneRect().height()-0.2;
     ui->graphicsView->scale(xscale, yscale);
+}
+
+void MainWindow::fillBitMapRand()
+{
+    m_sceneBitMap = new QGraphicsScene(this);
+    qreal sceneW = ui->graphicsView_2->width()-10;
+    qreal sceneH =ui->graphicsView_2->height()-10;
+    m_sceneBitMap->setSceneRect(0,0,sceneW,sceneH );
+    ui->graphicsView_2->setScene(m_sceneBitMap);
+    for( int x=0; x<sceneW/10;x++)
+    {
+        for( int y=0; y<sceneH/10;y++ )
+        {
+            qDebug()<<x<<y;
+            m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(Qt::green));
+        }
+    }
+//    ui->graphicsView_2->fitInView(m_sceneBitMap->sceneRect(), Qt::KeepAspectRatio);
 }
 
 void MainWindow::addRectList()
