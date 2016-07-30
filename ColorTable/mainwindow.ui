@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>376</width>
-    <height>773</height>
+    <width>891</width>
+    <height>740</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,12 +17,65 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>570</x>
       <y>40</y>
-      <width>71</width>
+      <width>81</width>
       <height>621</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>40</y>
+      <width>501</width>
+      <height>621</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>70</y>
+      <width>189</width>
+      <height>128</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="1">
+      <widget class="QSpinBox" name="spinBox"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Top Value</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>recolor</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>rand populate</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="2">
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="text">
+        <string>clean</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -30,7 +83,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>376</width>
+     <width>891</width>
      <height>25</height>
     </rect>
    </property>
