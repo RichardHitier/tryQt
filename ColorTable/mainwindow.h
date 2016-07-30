@@ -21,14 +21,18 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *m_sceneBitMap ;
     QGraphicsScene *m_scene ;
     QList<QColor> m_colorList;
+    QList<QGraphicsRectItem *> m_pxList;
     void initUi();
     void initColorTable();
     void fillBitMapRand();
+    void cleanBitMap();
     void addRectList();
     void makeColorTable();
     int randInt(int,int);

@@ -44,8 +44,25 @@ void MainWindow::initColorTable()
     ui->graphicsView->scale(xscale, yscale);
 }
 
+void MainWindow::cleanBitMap()
+{
+   int i;
+   //int numItems = m_sceneBitMap->items().size();
+   for( i=0; i<m_pxList.size(); i++)
+   {
+       m_sceneBitMap->removeItem(m_pxList.at(i));
+   }
+   qDebug()<<"removed "<<i;
+   for( i=0; i<m_pxList.size(); i++)
+   {
+       m_pxList.removeAt(i);
+   }
+   qDebug()<<"removed "<<i;
+}
+
 void MainWindow::fillBitMapRand()
 {
+    int i=0;
     m_sceneBitMap = new QGraphicsScene(this);
     qreal sceneW = ui->graphicsView_2->width()-10;
     qreal sceneH =ui->graphicsView_2->height()-10;
@@ -55,13 +72,16 @@ void MainWindow::fillBitMapRand()
     {
         for( int y=0; y<sceneH/10;y++ )
         {
+            i++;
             int max = ui->maxSpinBox->value();
             QColor pxColor = countColor(randInt(0,max), max);
-            m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(pxColor));
+            QGraphicsRectItem *px = m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(pxColor));
+            m_pxList.append(px);
             //QThread::msleep(2);
             //QApplication::processEvents();
         }
     }
+    qDebug()<<"Filled "<<i<<" items";
 }
 
 int MainWindow::randInt(int low, int high)
@@ -133,4 +153,9 @@ QColor MainWindow::countColor(int count, int maxValue)
 void MainWindow::on_pushButton_clicked()
 {
    fillBitMapRand();
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+   cleanBitMap();
 }
