@@ -23,12 +23,17 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_pushButton_2_clicked();
+
+    void on_maxSpinBox_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *m_sceneBitMap ;
     QGraphicsScene *m_scene ;
     QList<QColor> m_colorList;
     QList<QGraphicsRectItem *> m_pxList;
+    QList<int> m_countList;
     void initUi();
     void initColorTable();
     void fillBitMapRand();
@@ -36,6 +41,7 @@ private:
     void addRectList();
     void makeColorTable();
     int randInt(int,int);
+    void recolor();
     QColor  countColor(int, int);
 };
 

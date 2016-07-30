@@ -74,9 +74,11 @@ void MainWindow::fillBitMapRand()
         {
             i++;
             int max = ui->maxSpinBox->value();
-            QColor pxColor = countColor(randInt(0,max), max);
+            int count = randInt(0,max);
+            QColor pxColor = countColor(count, max);
             QGraphicsRectItem *px = m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(pxColor));
             m_pxList.append(px);
+            m_countList.append(count);
             //QThread::msleep(2);
             //QApplication::processEvents();
         }
@@ -90,6 +92,17 @@ int MainWindow::randInt(int low, int high)
     return qrand() % ((high + 1) - low) + low;
 }
 
+void MainWindow::recolor()
+{
+    for( int i=0; i<m_pxList.size(); i++)
+    {
+        int count = m_countList.at(i);
+        int max = ui->maxSpinBox->value();
+        //qDebug()<<i<<": coloring count "<<count<<" for max="<<max;
+        QColor pxcolor = countColor(count, max);
+        ( m_pxList.at(i) )->setBrush(QBrush(pxcolor) );
+    }
+}
 
 /*
  * draws the color table
@@ -158,4 +171,14 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_3_clicked()
 {
    cleanBitMap();
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+  recolor();
+}
+
+void MainWindow::on_maxSpinBox_valueChanged(int arg1)
+{
+   recolor();
 }
