@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QDebug>
+#include <QGraphicsTextItem>
 
 #define NBCOLORS 255
 
@@ -30,7 +31,7 @@ void MainWindow::initUi()
     QPen mypen (Qt::black);
     mypen.setWidth(1);
     QBrush mybrush (Qt::transparent);
-    m_scene->addRect(0,0,10,NBCOLORS, mypen, mybrush);
+    //m_scene->addRect(0,0,10,NBCOLORS, mypen, mybrush);
     //ui->graphicsView->fitInView(m_scene->sceneRect(), Qt::KeepAspectRatio);
     qreal xscale = ui->graphicsView->width()/(qreal)m_scene->sceneRect().width()-0.2;
     qreal yscale = ui->graphicsView->height()/(qreal)m_scene->sceneRect().height()-0.2;
@@ -41,7 +42,17 @@ void MainWindow::addRectList()
 {
     for( int i=0; i<NBCOLORS; i++)
     {
-        m_scene->addRect(0,i,10,10, QPen(Qt::transparent), countColor(i));
+        m_scene->addRect(0,i,3,10, QPen(Qt::transparent), countColor(i));
+        //m_scene->addRect(0,i,8,10, QPen(Qt::transparent), Qt::transparent);
+        int tic = i%10;
+        if( tic == 0)
+        {
+            qDebug()<<"-------- "<<i;
+            //m_scene->addRect(9,i,2,1, QPen(Qt::transparent), Qt::black);
+            QGraphicsTextItem *text = m_scene->addText(QString::number(i), QFont("Arial",3));
+            text->setPos(-1,i-5);
+            //text->show();
+        }
     }
 }
 
