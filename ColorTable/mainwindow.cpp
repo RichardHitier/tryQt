@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     makeColorTable();
     initUi();
-    addRectList();
 }
 
 MainWindow::~MainWindow()
@@ -26,7 +25,7 @@ MainWindow::~MainWindow()
 void MainWindow::initUi()
 {
     initColorTable();
-    fillBitMapRand();
+    addRectList();
 }
 
 void MainWindow::initColorTable()
@@ -62,11 +61,15 @@ void MainWindow::fillBitMapRand()
 //    ui->graphicsView_2->fitInView(m_sceneBitMap->sceneRect(), Qt::KeepAspectRatio);
 }
 
+/*
+ * draws the color table
+ */
 void MainWindow::addRectList()
 {
     for( int i=0; i<NBCOLORS; i++)
     {
-        m_scene->addRect(0,i,3,10, QPen(Qt::transparent), countColor(i));
+        m_scene->addRect(0,i,3,10, QPen(Qt::transparent), countColor(i, NBCOLORS));
+        // now draw tics
         int tic = i%10;
         if( tic == 0)
         {
@@ -100,7 +103,15 @@ void MainWindow::makeColorTable()
     }
 }
 
-QColor MainWindow::countColor(int index)
+QColor MainWindow::countColor(int count, int maxValue)
 {
-    return m_colorList.at(index);
+    // cut to top
+    count = count > maxValue ?  maxValue : count;
+
+    return m_colorList.at(count);
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+   fillBitMapRand();
 }
