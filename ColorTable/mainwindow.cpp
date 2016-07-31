@@ -69,6 +69,7 @@ void MainWindow::cleanBitMap()
    {
        delete(m_pxList.at(0));
        m_pxList.removeAt(0);
+       m_countList.removeAt(0);
    }
    qDebug()<<"removed from pxlist: "<<i<<" over "<<pxListItems;
 }
@@ -169,14 +170,16 @@ QColor MainWindow::countColor(int count, int maxValue)
     count = count > maxValue ?  maxValue : count;
 
     // normalize to max
-    count = (count * NBCOLORS) / maxValue;
+    count = (count * ( NBCOLORS -1)) / maxValue;
+    qDebug()<<"bouducount "<<count<<" but color list size ="<<m_colorList.size();
+
 
     return m_colorList.at(count);
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    //cleanBitMap();
+    cleanBitMap();
     fillBitMapRand();
 }
 
