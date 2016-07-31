@@ -3,12 +3,35 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
 #include <QColor>
 #include <QList>
+#include <QGraphicsSceneHoverEvent>
+#include <QGraphicsRectItem>
 
 namespace Ui {
 class MainWindow;
+class BitMapScene;
+class PxItem;
 }
+
+class BitMapScene : public QGraphicsScene
+{
+    Q_OBJECT
+public:
+    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+signals:
+    void countPosition(int x, int y, int count);
+};
+
+class PxItem : public QGraphicsRectItem
+{
+public:
+    int m_count=0;
+    PxItem();
+    void setCount(int);
+    int count(){return m_count;}
+};
 
 class MainWindow : public QMainWindow
 {
@@ -19,6 +42,8 @@ public:
     ~MainWindow();
 
 private slots:
+    void gotCountPos(int,int,int);
+
     void on_pushButton_clicked();
 
     void on_pushButton_3_clicked();
@@ -27,13 +52,16 @@ private slots:
 
     void on_maxSpinBox_valueChanged(int arg1);
 
+    void on_stepSpinBox_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene *m_sceneBitMap ;
-    QGraphicsScene *m_scene ;
+    BitMapScene *m_sceneBitMap = NULL;
+    QGraphicsScene *m_scene = NULL;
     QList<QColor> m_colorList;
-    QList<QGraphicsRectItem *> m_pxList;
-    QList<int> m_countList;
+    QList<PxItem *> m_pxList;
+    qreal m_sceneW;
+    qreal m_sceneH;
     void initUi();
     void initColorTable();
     void fillBitMapRand();
@@ -43,6 +71,6 @@ private:
     int randInt(int,int);
     void recolor();
     QColor  countColor(int, int);
+    void mousePressEvent(QGraphicsSceneHoverEvent *);
 };
-
 #endif // MAINWINDOW_H

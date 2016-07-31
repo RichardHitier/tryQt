@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 
 #include <QDebug>
-#include <QGraphicsTextItem>
 #include <QThread>
 
 #define NBCOLORS 255
@@ -25,8 +24,26 @@ MainWindow::~MainWindow()
 
 void MainWindow::initUi()
 {
+    m_sceneW = ui->graphicsView_2->width()*0.99;
+    m_sceneH =ui->graphicsView_2->height()*0.99;
+    if( NULL == m_sceneBitMap)
+    {
+        m_sceneBitMap = new BitMapScene();
+        m_sceneBitMap->setSceneRect(0,0,m_sceneW,m_sceneH );
+        ui->graphicsView_2->setScene(m_sceneBitMap);
+    }
+
     initColorTable();
     addRectList();
+
+    connect(m_sceneBitMap, SIGNAL(countPosition(int,int,int)), this, SLOT(gotCountPos(int,int,int)));
+}
+
+void MainWindow::gotCountPos(int x, int y, int count)
+{
+    ui->xLabel->setText(QString::number(x));
+    ui->yLabel->setText(QString::number(y));
+    ui->countLabel->setText(QString::number(count));
 }
 
 void MainWindow::initColorTable()
@@ -47,40 +64,34 @@ void MainWindow::initColorTable()
 void MainWindow::cleanBitMap()
 {
    int i;
-   //int numItems = m_sceneBitMap->items().size();
-   for( i=0; i<m_pxList.size(); i++)
+   int sceneItems = m_sceneBitMap->items().size();
+   for( i=0; i<sceneItems; i++)
    {
        m_sceneBitMap->removeItem(m_pxList.at(i));
    }
-   qDebug()<<"removed "<<i;
-   for( i=0; i<m_pxList.size(); i++)
+   int pxListItems = m_pxList.size();
+   for( i=0; i<pxListItems; i++)
    {
-       m_pxList.removeAt(i);
+       delete(m_pxList.at(0));
+       m_pxList.removeAt(0);
    }
-   qDebug()<<"removed "<<i;
 }
 
 void MainWindow::fillBitMapRand()
 {
     int i=0;
-    m_sceneBitMap = new QGraphicsScene(this);
-    qreal sceneW = ui->graphicsView_2->width()-10;
-    qreal sceneH =ui->graphicsView_2->height()-10;
-    m_sceneBitMap->setSceneRect(0,0,sceneW,sceneH );
-    ui->graphicsView_2->setScene(m_sceneBitMap);
-    for( int x=0; x<sceneW/10;x++)
+
+    for( int x=0; x<m_sceneW/10;x++)
     {
-        for( int y=0; y<sceneH/10;y++ )
+        for( int y=0; y<m_sceneH/10;y++ )
         {
             i++;
             int max = ui->maxSpinBox->value();
             int count = randInt(0,max);
             QColor pxColor = countColor(count, max);
-            QGraphicsRectItem *px = m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(pxColor));
+            PxItem *px = (PxItem *)m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(pxColor));
+            px->setCount(count);
             m_pxList.append(px);
-            m_countList.append(count);
-            //QThread::msleep(2);
-            //QApplication::processEvents();
         }
     }
     qDebug()<<"Filled "<<i<<" items";
@@ -96,9 +107,8 @@ void MainWindow::recolor()
 {
     for( int i=0; i<m_pxList.size(); i++)
     {
-        int count = m_countList.at(i);
+        int count = ( m_pxList.at(i) )->count();
         int max = ui->maxSpinBox->value();
-        //qDebug()<<i<<": coloring count "<<count<<" for max="<<max;
         QColor pxcolor = countColor(count, max);
         ( m_pxList.at(i) )->setBrush(QBrush(pxcolor) );
     }
@@ -158,14 +168,16 @@ QColor MainWindow::countColor(int count, int maxValue)
     count = count > maxValue ?  maxValue : count;
 
     // normalize to max
-    count = (count * NBCOLORS) / maxValue;
+    count = (count * ( NBCOLORS -1)) / maxValue;
+
 
     return m_colorList.at(count);
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-   fillBitMapRand();
+    cleanBitMap();
+    fillBitMapRand();
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -181,4 +193,35 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_maxSpinBox_valueChanged(int arg1)
 {
    recolor();
+}
+
+void BitMapScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+  QGraphicsScene::mousePressEvent(mouseEvent); //Call the ancestor
+
+    int x = mouseEvent->scenePos().x();
+    int y = mouseEvent->scenePos().y();
+
+  QGraphicsItem *item;
+   item = itemAt(mouseEvent->scenePos(), QTransform()); //Get the item at the position
+   if (item) //If there is an item at that position
+   {
+     emit countPosition(x, y, ((PxItem *)item)->count());
+   }
+}
+
+
+PxItem::PxItem(){
+    setAcceptHoverEvents(true);
+}
+
+
+void PxItem::setCount(int count){
+    m_count = count;
+}
+
+void MainWindow::on_stepSpinBox_valueChanged(int arg1)
+{
+
+    ui->maxSpinBox->setSingleStep( ui->stepSpinBox->value() );
 }
