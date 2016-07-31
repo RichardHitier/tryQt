@@ -67,7 +67,8 @@ void MainWindow::cleanBitMap()
    qDebug()<<"About to remove "<<pxListItems<<" pxList items";
    for( i=0; i<pxListItems; i++)
    {
-       m_pxList.removeAt(i);
+       delete(m_pxList.at(0));
+       m_pxList.removeAt(0);
    }
    qDebug()<<"removed from pxlist: "<<i<<" over "<<pxListItems;
 }
