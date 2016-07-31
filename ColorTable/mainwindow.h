@@ -17,8 +17,11 @@ class PxItem;
 
 class BitMapScene : public QGraphicsScene
 {
+    Q_OBJECT
 public:
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+signals:
+    void countPosition(int x, int y, int count);
 };
 
 class PxItem : public QGraphicsRectItem
@@ -39,6 +42,8 @@ public:
     ~MainWindow();
 
 private slots:
+    void gotCountPos(int,int,int);
+
     void on_pushButton_clicked();
 
     void on_pushButton_3_clicked();

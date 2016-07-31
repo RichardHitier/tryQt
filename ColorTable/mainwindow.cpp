@@ -35,6 +35,13 @@ void MainWindow::initUi()
 
     initColorTable();
     addRectList();
+
+    connect(m_sceneBitMap, SIGNAL(countPosition(int,int,int)), this, SLOT(gotCountPos(int,int,int)));
+}
+
+void MainWindow::gotCountPos(int x, int y, int count)
+{
+    qDebug()<<"Got count pos:"<<x<<","<<y<<","<<count;
 }
 
 void MainWindow::initColorTable()
@@ -190,16 +197,17 @@ void BitMapScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
   QGraphicsScene::mousePressEvent(mouseEvent); //Call the ancestor
 
-  qDebug()<<"x: "<<mouseEvent->scenePos().x()
-          <<"y: "<<mouseEvent->scenePos().y();
+    int x = mouseEvent->scenePos().x();
+    int y = mouseEvent->scenePos().y();
 
   QGraphicsItem *item;
    item = itemAt(mouseEvent->scenePos(), QTransform()); //Get the item at the position
    if (item) //If there is an item at that position
    {
-     qDebug()<<((PxItem *)item)->count();
+     emit countPosition(x, y, ((PxItem *)item)->count());
    }
 }
+
 
 PxItem::PxItem(){
     setAcceptHoverEvents(true);
