@@ -65,7 +65,6 @@ void MainWindow::cleanBitMap()
    {
        delete(m_pxList.at(0));
        m_pxList.removeAt(0);
-       m_countList.removeAt(0);
    }
 }
 
@@ -84,9 +83,6 @@ void MainWindow::fillBitMapRand()
             PxItem *px = (PxItem *)m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(pxColor));
             px->setCount(count);
             m_pxList.append(px);
-            m_countList.append(count);
-            //QThread::msleep(2);
-            //QApplication::processEvents();
         }
     }
     qDebug()<<"Filled "<<i<<" items";
@@ -102,7 +98,7 @@ void MainWindow::recolor()
 {
     for( int i=0; i<m_pxList.size(); i++)
     {
-        int count = m_countList.at(i);
+        int count = ( m_pxList.at(i) )->count();
         int max = ui->maxSpinBox->value();
         QColor pxcolor = countColor(count, max);
         ( m_pxList.at(i) )->setBrush(QBrush(pxcolor) );
@@ -201,7 +197,7 @@ void BitMapScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
    item = itemAt(mouseEvent->scenePos(), QTransform()); //Get the item at the position
    if (item) //If there is an item at that position
    {
-     qDebug()<<((PxItem *)item)->m_count;
+     qDebug()<<((PxItem *)item)->count();
    }
 }
 

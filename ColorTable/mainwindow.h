@@ -27,6 +27,7 @@ public:
     int m_count=0;
     PxItem();
     void setCount(int);
+    int count(){return m_count;}
 };
 
 class MainWindow : public QMainWindow
@@ -52,7 +53,6 @@ private:
     QGraphicsScene *m_scene = NULL;
     QList<QColor> m_colorList;
     QList<PxItem *> m_pxList;
-    QList<int> m_countList;
     qreal m_sceneW;
     qreal m_sceneH;
     void initUi();
