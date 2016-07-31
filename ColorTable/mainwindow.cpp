@@ -41,7 +41,9 @@ void MainWindow::initUi()
 
 void MainWindow::gotCountPos(int x, int y, int count)
 {
-    qDebug()<<"Got count pos:"<<x<<","<<y<<","<<count;
+    ui->xLabel->setText(QString::number(x));
+    ui->yLabel->setText(QString::number(y));
+    ui->countLabel->setText(QString::number(count));
 }
 
 void MainWindow::initColorTable()
