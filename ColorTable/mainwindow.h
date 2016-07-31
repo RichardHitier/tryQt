@@ -29,8 +29,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene *m_sceneBitMap ;
-    QGraphicsScene *m_scene ;
+    QGraphicsScene *m_sceneBitMap = NULL;
+    QGraphicsScene *m_scene = NULL;
     QList<QColor> m_colorList;
     QList<QGraphicsRectItem *> m_pxList;
     QList<int> m_countList;
