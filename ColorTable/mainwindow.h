@@ -52,6 +52,8 @@ private slots:
 
     void on_maxSpinBox_valueChanged(int arg1);
 
+    void on_stepSpinBox_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     BitMapScene *m_sceneBitMap = NULL;

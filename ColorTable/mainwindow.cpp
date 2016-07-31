@@ -219,3 +219,9 @@ PxItem::PxItem(){
 void PxItem::setCount(int count){
     m_count = count;
 }
+
+void MainWindow::on_stepSpinBox_valueChanged(int arg1)
+{
+
+    ui->maxSpinBox->setSingleStep( ui->stepSpinBox->value() );
+}
