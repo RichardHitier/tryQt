@@ -57,26 +57,21 @@ void MainWindow::cleanBitMap()
 {
    int i;
    int sceneItems = m_sceneBitMap->items().size();
-   qDebug()<<"About to remove "<<sceneItems<<" scene items";
    for( i=0; i<sceneItems; i++)
    {
        m_sceneBitMap->removeItem(m_pxList.at(i));
    }
-   qDebug()<<"removed from scene: "<<i<<" over "<<sceneItems;
    int pxListItems = m_pxList.size();
-   qDebug()<<"About to remove "<<pxListItems<<" pxList items";
    for( i=0; i<pxListItems; i++)
    {
        delete(m_pxList.at(0));
        m_pxList.removeAt(0);
        m_countList.removeAt(0);
    }
-   qDebug()<<"removed from pxlist: "<<i<<" over "<<pxListItems;
 }
 
 void MainWindow::fillBitMapRand()
 {
-    qDebug()<<"Randomly filling bitmap";
     int i=0;
 
     for( int x=0; x<m_sceneW/10;x++)
@@ -105,12 +100,10 @@ int MainWindow::randInt(int low, int high)
 
 void MainWindow::recolor()
 {
-    qDebug()<<"Inside recoloring";
     for( int i=0; i<m_pxList.size(); i++)
     {
         int count = m_countList.at(i);
         int max = ui->maxSpinBox->value();
-        qDebug()<<i<<": coloring count "<<count<<" for max="<<max;
         QColor pxcolor = countColor(count, max);
         ( m_pxList.at(i) )->setBrush(QBrush(pxcolor) );
     }
@@ -171,7 +164,6 @@ QColor MainWindow::countColor(int count, int maxValue)
 
     // normalize to max
     count = (count * ( NBCOLORS -1)) / maxValue;
-    qDebug()<<"bouducount "<<count<<" but color list size ="<<m_colorList.size();
 
 
     return m_colorList.at(count);
