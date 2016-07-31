@@ -29,7 +29,7 @@ void MainWindow::initUi()
     m_sceneH =ui->graphicsView_2->height()*0.99;
     if( NULL == m_sceneBitMap)
     {
-        m_sceneBitMap = new QGraphicsScene(this);
+        m_sceneBitMap = new BitMapScene();
         m_sceneBitMap->setSceneRect(0,0,m_sceneW,m_sceneH );
         ui->graphicsView_2->setScene(m_sceneBitMap);
     }
@@ -188,4 +188,18 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_maxSpinBox_valueChanged(int arg1)
 {
    recolor();
+}
+void BitMapScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+  QGraphicsScene::mousePressEvent(mouseEvent); //Call the ancestor
+
+  qDebug()<<"x: "<<mouseEvent->scenePos().x()
+          <<"y: "<<mouseEvent->scenePos().y();
+
+  QGraphicsItem *item;
+   item = itemAt(mouseEvent->scenePos(), QTransform()); //Get the item at the position
+   if (item) //If there is an item at that position
+   {
+     //Some code
+   }
 }

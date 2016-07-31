@@ -3,12 +3,20 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
 #include <QColor>
 #include <QList>
 
 namespace Ui {
 class MainWindow;
+class BitMapScene;
 }
+
+class BitMapScene : public QGraphicsScene
+{
+public:
+    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+};
 
 class MainWindow : public QMainWindow
 {
@@ -29,7 +37,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene *m_sceneBitMap = NULL;
+    BitMapScene *m_sceneBitMap = NULL;
     QGraphicsScene *m_scene = NULL;
     QList<QColor> m_colorList;
     QList<QGraphicsRectItem *> m_pxList;
