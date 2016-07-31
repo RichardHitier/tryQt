@@ -25,6 +25,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::initUi()
 {
+    m_sceneW = ui->graphicsView_2->width()*0.99;
+    m_sceneH =ui->graphicsView_2->height()*0.99;
+    if( NULL == m_sceneBitMap)
+    {
+        m_sceneBitMap = new QGraphicsScene(this);
+        m_sceneBitMap->setSceneRect(0,0,m_sceneW,m_sceneH );
+        ui->graphicsView_2->setScene(m_sceneBitMap);
+    }
+
     initColorTable();
     addRectList();
 }
@@ -47,34 +56,30 @@ void MainWindow::initColorTable()
 void MainWindow::cleanBitMap()
 {
    int i;
-   //int numItems = m_sceneBitMap->items().size();
-   for( i=0; i<m_pxList.size(); i++)
+   int sceneItems = m_sceneBitMap->items().size();
+   qDebug()<<"About to remove "<<sceneItems<<" scene items";
+   for( i=0; i<sceneItems; i++)
    {
        m_sceneBitMap->removeItem(m_pxList.at(i));
    }
-   qDebug()<<"removed from scene: "<<i;
-   for( i=0; i<m_pxList.size(); i++)
+   qDebug()<<"removed from scene: "<<i<<" over "<<sceneItems;
+   int pxListItems = m_pxList.size();
+   qDebug()<<"About to remove "<<pxListItems<<" pxList items";
+   for( i=0; i<pxListItems; i++)
    {
        m_pxList.removeAt(i);
    }
-   qDebug()<<"removed from pxlist: "<<i;
+   qDebug()<<"removed from pxlist: "<<i<<" over "<<pxListItems;
 }
 
 void MainWindow::fillBitMapRand()
 {
     qDebug()<<"Randomly filling bitmap";
     int i=0;
-    qreal sceneW = ui->graphicsView_2->width()*0.99;
-    qreal sceneH =ui->graphicsView_2->height()*0.99;
-    if( NULL == m_sceneBitMap)
+
+    for( int x=0; x<m_sceneW/10;x++)
     {
-        m_sceneBitMap = new QGraphicsScene(this);
-        m_sceneBitMap->setSceneRect(0,0,sceneW,sceneH );
-        ui->graphicsView_2->setScene(m_sceneBitMap);
-    }
-    for( int x=0; x<sceneW/10;x++)
-    {
-        for( int y=0; y<sceneH/10;y++ )
+        for( int y=0; y<m_sceneH/10;y++ )
         {
             i++;
             int max = ui->maxSpinBox->value();
@@ -170,7 +175,8 @@ QColor MainWindow::countColor(int count, int maxValue)
 
 void MainWindow::on_pushButton_clicked()
 {
-   fillBitMapRand();
+    //cleanBitMap();
+    fillBitMapRand();
 }
 
 void MainWindow::on_pushButton_3_clicked()

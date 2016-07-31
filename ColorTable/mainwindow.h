@@ -34,6 +34,8 @@ private:
     QList<QColor> m_colorList;
     QList<QGraphicsRectItem *> m_pxList;
     QList<int> m_countList;
+    qreal m_sceneW;
+    qreal m_sceneH;
     void initUi();
     void initColorTable();
     void fillBitMapRand();
