@@ -24,8 +24,9 @@ public:
 class PxItem : public QGraphicsRectItem
 {
 public:
-    int count=0;
+    int m_count=0;
     PxItem();
+    void setCount(int);
 };
 
 class MainWindow : public QMainWindow

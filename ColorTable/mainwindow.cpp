@@ -82,7 +82,7 @@ void MainWindow::fillBitMapRand()
             int count = randInt(0,max);
             QColor pxColor = countColor(count, max);
             PxItem *px = (PxItem *)m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(pxColor));
-            px->setAcceptHoverEvents(true);
+            px->setCount(count);
             m_pxList.append(px);
             m_countList.append(count);
             //QThread::msleep(2);
@@ -201,18 +201,15 @@ void BitMapScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
    item = itemAt(mouseEvent->scenePos(), QTransform()); //Get the item at the position
    if (item) //If there is an item at that position
    {
-     //Some code
+     qDebug()<<((PxItem *)item)->m_count;
    }
-}
-
-void MainWindow::mousePressEvent(QGraphicsSceneHoverEvent* event)
-{
-    qDebug()<<"HEYAO";
-    qDebug()<< event->pos().x()
-            << event->pos().y();
 }
 
 PxItem::PxItem(){
     setAcceptHoverEvents(true);
 }
 
+
+void PxItem::setCount(int count){
+    m_count = count;
+}
