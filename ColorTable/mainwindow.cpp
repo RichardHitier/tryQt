@@ -80,16 +80,17 @@ void MainWindow::cleanBitMap()
 void MainWindow::fillBitMapRand()
 {
     int i=0;
+    int pxW=ui->pxWidthSpinBox->value();
 
-    for( int x=0; x<m_sceneW/10;x++)
+    for( int x=0; x<m_sceneW/pxW;x++)
     {
-        for( int y=0; y<m_sceneH/10;y++ )
+        for( int y=0; y<m_sceneH/pxW;y++ )
         {
             i++;
             int max = ui->maxSpinBox->value();
             int count = randInt(0,max);
             QColor pxColor = countColor(count, max);
-            PxItem *px = (PxItem *)m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(pxColor));
+            PxItem *px = (PxItem *)m_sceneBitMap->addRect(x*pxW,y*pxW,pxW,pxW, QPen(Qt::transparent), QBrush(pxColor));
             px->setCount(count);
             m_pxList.append(px);
         }
