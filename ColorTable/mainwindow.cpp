@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 
 #include <QDebug>
-#include <QGraphicsTextItem>
 #include <QThread>
 
 #define NBCOLORS 255
@@ -82,7 +81,8 @@ void MainWindow::fillBitMapRand()
             int max = ui->maxSpinBox->value();
             int count = randInt(0,max);
             QColor pxColor = countColor(count, max);
-            QGraphicsRectItem *px = m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(pxColor));
+            PxItem *px = (PxItem *)m_sceneBitMap->addRect(x*10,y*10,10,10, QPen(Qt::black), QBrush(pxColor));
+            px->setAcceptHoverEvents(true);
             m_pxList.append(px);
             m_countList.append(count);
             //QThread::msleep(2);
@@ -189,6 +189,7 @@ void MainWindow::on_maxSpinBox_valueChanged(int arg1)
 {
    recolor();
 }
+
 void BitMapScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
   QGraphicsScene::mousePressEvent(mouseEvent); //Call the ancestor
@@ -203,3 +204,15 @@ void BitMapScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
      //Some code
    }
 }
+
+void MainWindow::mousePressEvent(QGraphicsSceneHoverEvent* event)
+{
+    qDebug()<<"HEYAO";
+    qDebug()<< event->pos().x()
+            << event->pos().y();
+}
+
+PxItem::PxItem(){
+    setAcceptHoverEvents(true);
+}
+

@@ -6,16 +6,26 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QColor>
 #include <QList>
+#include <QGraphicsSceneHoverEvent>
+#include <QGraphicsRectItem>
 
 namespace Ui {
 class MainWindow;
 class BitMapScene;
+class PxItem;
 }
 
 class BitMapScene : public QGraphicsScene
 {
 public:
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+};
+
+class PxItem : public QGraphicsRectItem
+{
+public:
+    int count=0;
+    PxItem();
 };
 
 class MainWindow : public QMainWindow
@@ -40,7 +50,7 @@ private:
     BitMapScene *m_sceneBitMap = NULL;
     QGraphicsScene *m_scene = NULL;
     QList<QColor> m_colorList;
-    QList<QGraphicsRectItem *> m_pxList;
+    QList<PxItem *> m_pxList;
     QList<int> m_countList;
     qreal m_sceneW;
     qreal m_sceneH;
@@ -53,6 +63,6 @@ private:
     int randInt(int,int);
     void recolor();
     QColor  countColor(int, int);
+    void mousePressEvent(QGraphicsSceneHoverEvent *);
 };
-
 #endif // MAINWINDOW_H
